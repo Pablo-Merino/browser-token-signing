@@ -28,6 +28,7 @@ typedef struct {
     char *(*promptFunction)(void *, const char *, const char *, unsigned, int);
     void (*alertFunction)(void *, const char *);
     void *nativeWindowHandle;
+    NPUTF8 *promptMessage;
 	char *pin2;
 } EstEID_PINPromptData;
 

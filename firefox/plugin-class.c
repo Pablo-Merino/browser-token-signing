@@ -39,6 +39,7 @@ extern int EstEID_errorCode;
 
 bool allowedSite;
 char pluginLanguage[3];
+char promptMessage[1024];
 
 bool isAllowedSite() {
 	if(!allowedSite) {
@@ -128,9 +129,13 @@ bool doSign(PluginInstance *obj, NPVariant *args, unsigned argCount, NPVariant *
 	}
 	EstEID_setLocale(pluginLanguage);
 
+	if(argCount > 3 && NPVARIANT_IS_OBJECT(args[3])){
+		strcpy(promptMessage, createStringFromNPVariant(args[3]));
+	}
+
 	void* wnd = getNativeWindowHandle(obj);
 
-	EstEID_PINPromptData pinPromptData = {promptForPIN, showAlert, wnd, NULL};
+	EstEID_PINPromptData pinPromptData = {promptForPIN, showAlert, wnd, promptMessage, NULL};
 	NPUTF8* certId = createStringFromNPVariant(&args[0]);
 	NPUTF8* hash = createStringFromNPVariant(&args[1]);
 	char *signature = NULL;

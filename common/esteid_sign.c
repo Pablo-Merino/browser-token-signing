@@ -339,7 +339,7 @@ int EstEID_signHash(char **signature, unsigned int *signatureLength, CK_SLOT_ID 
 			sprintf(message, "%s%s %i", (attempt ? l10n("Incorrect PIN2! ") : ""), l10n("Tries left:"), remainingTries);
 		}
 		else {
-			message[0] = 0;
+			sprintf(message, pinPromptData.promptMessage)
 		}
 		isPinPad = EstEID_isPinPad(slotID);
 		if(!isPinPad) {
